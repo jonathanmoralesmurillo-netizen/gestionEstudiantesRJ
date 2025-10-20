@@ -1,6 +1,3 @@
-
-
-
 class Estudiante:
     def __init__(self,id,nombre, nota):
         if id < 0:
