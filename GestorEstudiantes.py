@@ -59,6 +59,52 @@ class GestorEstudiantes :
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     estudiantes: list[Estudiante]
     def __init__(self):
         self.estudiantes: list[Estudiante] = []
@@ -127,19 +173,15 @@ class GestorEstudiantes :
 Jon
 + listar_ordenado(criterio: str = "nombre") list[Estudiante]
 listo 
-
 + clasificar(umbral: float = 70.0) dict
 listo 
-+ estadisticas()
-dict
-+ distribucion_porcentual()
-dict
+
++ estadisticas() ->dict estudiantes
++ distribucion_porcentual() ->dict
 + cargar() void
 + guardar() void
 + obtener_todos()
 list[Estudiante]
-
-+ contar_estudiantes()
-int
++ contar_estudiantes()->int
 
 """
