@@ -1,3 +1,5 @@
+import math
+
 from Estudiante import Estudiante
 
 class GestorEstudiantes :
@@ -94,9 +96,20 @@ class GestorEstudiantes :
                 'desviacion': 0.0,
                 'total':0.00
             }
-
-
-
+         #medida de dispersión que indica qué tan dispersos están los datos de un conjunto con respecto a su media aritmética
+        notas= [estudiantes.getNota() for estudiantes in self.estudiantes]# saco las notas
+        promedio= sum(notas)/len(notas)
+        maxima= max(notas)
+        minima= min(notas)
+        varianza = sum((nota-promedio)**2 for nota in notas)/len(notas)
+        desviacion= math.sqrt(varianza)
+        return {
+            "promedio": round(promedio,2),
+            "maxima": maxima,
+            "minima": minima,
+            "desviacion": round(desviacion,2),
+            "total": len(self.estudiantes)
+        }
 
 
 """
