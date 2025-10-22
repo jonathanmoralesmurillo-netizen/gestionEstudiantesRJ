@@ -1,7 +1,8 @@
+import logging
 import math
 
 from Estudiante import Estudiante
-
+from RepositorioPort import RepositorioPort
 class GestorEstudiantes :
 
 
@@ -111,7 +112,6 @@ class GestorEstudiantes :
 
 
 
-    
 
 
 
@@ -132,14 +132,31 @@ class GestorEstudiantes :
 
 
 
-    
 
 
 
 
-    estudiantes= list[Estudiante]
-    def __init__(self):
-        self.estudiantes: list[Estudiante] = []
+
+
+
+
+    def __init__(self,repo: RepositorioPort):
+        self._estudiantes: list[Estudiante] = []
+        self._repo = repo
+        self._configurar_logging()
+
+    @property
+    def estudiantes(self) -> list[Estudiante]:
+        # opcional, para lectura externa consistente
+        return self._estudiantes
+
+    def _configurar_logging(self) -> None:
+        """Configurar el registro para el seguimiento de errores."""
+        logging.basicConfig(
+            filename='errores.log',
+            level=logging.ERROR,
+            format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+        )
 
     def agregar_estudiante(self, estudiante: Estudiante):
         self.estudiantes.append(estudiante)
@@ -154,7 +171,7 @@ class GestorEstudiantes :
     def  clasificar(self, umbral: float = 70.0)-> dict:
         listReprobados =[]
         listAprobados = []
-        for estudiante in self.estudiantes:
+        for estudiante in self._estudiantes:
             if estudiante.getNota()>=umbral:
                 listAprobados.append(estudiante)
             else:
@@ -175,7 +192,7 @@ class GestorEstudiantes :
                 'total':0.00
             }
          #medida de dispersión que indica qué tan dispersos están los datos de un conjunto con respecto a su media aritmética
-        notas= [estudiantes.getNota() for estudiantes in self.estudiantes]# saco las notas
+        notas= [estudiantes.getNota() for estudiantes in self._estudiantes]# saco las notas
         promedio= sum(notas)/len(notas)
         maxima= max(notas)
         minima= min(notas)
@@ -196,9 +213,9 @@ class GestorEstudiantes :
                 '80-100':0.0
              }
         total= len(self.estudiantes)
-        rango0a59 = sum(1 for est in self.estudiantes if 0 <= est.getNota()<= 59)
-        rango60a79 = sum(1 for est in self.estudiantes if 60 <= est.getNota() <= 79)
-        rango80a100= sum(1 for est in self.estudiantes if 80 <= est.getNota() <= 100)
+        rango0a59 = sum(1 for est in self._estudiantes if 0 <= est.getNota()<= 59)
+        rango60a79 = sum(1 for est in self._estudiantes if 60 <= est.getNota() <= 79)
+        rango80a100= sum(1 for est in self._estudiantes if 80 <= est.getNota() <= 100)
         return {'0-59': round(( rango0a59/total)*100,2),
                 '60-79': round((rango60a79/total)*100,2),
                 '80-100': round((rango80a100/total)*100,2),
@@ -215,7 +232,16 @@ class GestorEstudiantes :
 
     Beneficio: quien llame al método recibe otra lista;
     si añade o elimina elementos en esa lista no altera la lista interna del objeto."""
-        return self.estudiantes
+        return self._estudiantes
+
+    def guardar(self)->None:
+        try:
+            self._repo.guardar(self._estudiantes)
+            logging.info(f"Guardando {len(self._estudiantes)} estudiantes")
+        except Exception as e:
+            logging.error(e)
+            raise
+
 
 """
 #1 Rita
