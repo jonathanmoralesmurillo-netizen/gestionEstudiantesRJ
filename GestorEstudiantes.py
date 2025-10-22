@@ -172,6 +172,18 @@ class GestorEstudiantes :
                 '80-100': round((rango80a100/total)*100,2),
                 }
 
+    def contar_estudiantes(self) ->int :
+        return len(self.estudiantes)
+
+
+
+
+    def obtener_Todos(self)-> list[Estudiante]:
+        """.copy(): devuelve una copia superficial (shallow copy) de la lista.
+
+    Beneficio: quien llame al método recibe otra lista;
+    si añade o elimina elementos en esa lista no altera la lista interna del objeto."""
+        return self.estudiantes
 
 """
 #1 Rita
@@ -192,9 +204,14 @@ listo
 listo 
 
 + estadisticas() ->dict estudiantes
+listo 
 + distribucion_porcentual() ->dict
+listo
 + cargar() void
+necestitamos  persistencia de datos 
+
 + guardar() void
+necestitamos  persistencia de datos 
 + obtener_todos()
 list[Estudiante]
 + contar_estudiantes()->int
