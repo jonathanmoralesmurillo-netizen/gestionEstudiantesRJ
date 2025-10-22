@@ -105,6 +105,38 @@ class GestorEstudiantes :
 
 
 
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
     estudiantes= list[Estudiante]
     def __init__(self):
         self.estudiantes: list[Estudiante] = []
