@@ -14,6 +14,7 @@ e5 = Estudiante(5,"aaron",50)
 e6 = Estudiante(6,"Martha",80)
 e7 = Estudiante(7,"David",100)
 
+
 gestor.agregar_estudiante(e1)
 gestor.agregar_estudiante(e2)
 gestor.agregar_estudiante(e3)
