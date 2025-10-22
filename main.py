@@ -22,6 +22,7 @@ gestor.agregar_estudiante(e5)
 gestor.agregar_estudiante(e6)
 gestor.agregar_estudiante(e7)
 
+
 print(gestor.estaditicas())
 print(gestor.distribucion_porcentual())
 print("Estudiantes ordenados por nombre:")
