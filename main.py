@@ -1,7 +1,12 @@
 from Estudiante import *
+
+from RepositorioCSV import RepositorioCSV
 from GestorEstudiantes import *
-gestor = GestorEstudiantes()
-listaEstudiantes = []
+
+repo = RepositorioCSV("estudiantes.csv")
+gestor = GestorEstudiantes(repo)
+
+
 
 e1 = Estudiante(1,"Jon",66)
 e2 = Estudiante(2,"beto", 70)
@@ -25,3 +30,5 @@ for e in gestor.listar_ordenado("nombre"):
 print("Estudiantes ordenados por Nota:")
 for e in gestor.listar_ordenado("nota"):
     print(e)
+
+gestor.guardar()
