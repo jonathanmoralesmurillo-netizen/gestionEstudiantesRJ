@@ -105,7 +105,7 @@ class GestorEstudiantes :
 
 
 
-    estudiantes: list[Estudiante]
+    estudiantes= list[Estudiante]
     def __init__(self):
         self.estudiantes: list[Estudiante] = []
 
@@ -156,6 +156,21 @@ class GestorEstudiantes :
             "desviacion": round(desviacion,2),
             "total": len(self.estudiantes)
         }
+
+    def distribucion_porcentual(self) ->dict:
+        if not self.estudiantes:
+          return  {'0-59':0.0,
+                '60-79':0.0,
+                '80-100':0.0
+             }
+        total= len(self.estudiantes)
+        rango0a59 = sum(1 for est in self.estudiantes if 0 <= est.getNota()<= 59)
+        rango60a79 = sum(1 for est in self.estudiantes if 60 <= est.getNota() <= 79)
+        rango80a100= sum(1 for est in self.estudiantes if 80 <= est.getNota() <= 100)
+        return {'0-59': round(( rango0a59/total)*100,2),
+                '60-79': round((rango60a79/total)*100,2),
+                '80-100': round((rango80a100/total)*100,2),
+                }
 
 
 """
