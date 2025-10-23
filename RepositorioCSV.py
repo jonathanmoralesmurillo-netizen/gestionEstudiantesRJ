@@ -79,7 +79,7 @@ class RepositorioCSV(ABC):
         Save students to CSV file.
 
         Args:
-            estudiantes (List[Estudiante]): List of students to save
+            estudiantes (List[Estudiante]): lista de estudiantes guardados
 
         Raises:
             Exception: If file writing fails
@@ -104,7 +104,7 @@ class RepositorioCSV(ABC):
 
 """   class RepositorioCSV {
         -ruta: str listo
-        +__init__(ruta: str) lsito 
+        +__init__(ruta: str) listo 
         +cargar() list[Estudiante]
         +guardar(estudiantes: list[Estudiante]) void
         -_configurar_logging() void listo
