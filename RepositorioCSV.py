@@ -79,7 +79,7 @@ class RepositorioCSV(ABC):
         Save students to CSV file.
 
         Args:
-            estudiantes (List[Estudiante]): List of students to save
+            estudiantes (List[Estudiante]): lista de estudiantes guardados
 
         Raises:
             Exception: If file writing fails
@@ -102,9 +102,44 @@ class RepositorioCSV(ABC):
             logging.error(f"Error saving CSV file {self._ruta}: {e}")
             raise
 
+    def cargar(self) -> List[Estudiante]:
+        """
+        Load students from CSV file.
+
+        Returns:
+            List[Estudiante]: List of loaded students
+
+        Raises:
+            Exception: If file reading fails
+        """
+        estudiantes = []
+        try:
+            with open(self._ruta, 'r', newline='', encoding='utf-8') as archivo:
+                lector = csv.DictReader(archivo)
+                for fila in lector:
+                    try:
+                        id_estudiante = int(fila['id'])
+                        nombre = fila['nombre']
+                        nota = float(fila['nota'])
+                        estudiante = Estudiante(id_estudiante, nombre, nota)
+                        estudiantes.append(estudiante)
+                    except (ValueError, KeyError) as e:
+                        logging.error(f"Error parsing row {fila}: {e}")
+                        continue
+        except FileNotFoundError:
+            # Si el archivo no existe, crear uno vacío
+            logging.info(f"CSV file {self._ruta} not found, creating empty file")
+            self._crear_archivo_vacio()
+        except Exception as e:
+            logging.error(f"Error loading CSV file {self._ruta}: {e}")
+            raise
+
+        return estudiantes
+
+
 """   class RepositorioCSV {
         -ruta: str listo
-        +__init__(ruta: str) lsito 
+        +__init__(ruta: str) listo 
         +cargar() list[Estudiante]
         +guardar(estudiantes: list[Estudiante]) void
         -_configurar_logging() void listo
