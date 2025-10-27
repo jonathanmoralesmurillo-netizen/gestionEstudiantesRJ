@@ -2,26 +2,12 @@ from Estudiante import *
 
 from RepositorioCSV import RepositorioCSV
 from GestorEstudiantes import *
+from RepositorioCSV import *
 
 repo = RepositorioCSV("estudiantes.csv")
 gestor = GestorEstudiantes(repo)
-
-e1 = Estudiante(1,"Jon",66)
-e2 = Estudiante(2,"beto", 70)
-e3 = Estudiante(3,"maria",79)
-e4 = Estudiante(4,"mario",100)
-e5 = Estudiante(5,"aaron",50)
-e6 = Estudiante(6,"Martha",80)
-e7 = Estudiante(7,"David",100)
-
-
-gestor.agregar_estudiante(e1)
-gestor.agregar_estudiante(e2)
-gestor.agregar_estudiante(e3)
-gestor.agregar_estudiante(e4)
-gestor.agregar_estudiante(e5)
-gestor.agregar_estudiante(e6)
-gestor.agregar_estudiante(e7)
+gestor.set_estudiantes(repo.cargar())
+gestor.obtener_Todos()
 """holA #12 """
 
 print(gestor.estaditicas())
