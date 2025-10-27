@@ -1,4 +1,37 @@
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class InterfazConsola:
     def __init__(self, gestor: GestorEstudiantes):
         self.gestor = gestor
