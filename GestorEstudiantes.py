@@ -1,8 +1,11 @@
 import logging
 import math
-
+import csv
 from Estudiante import Estudiante
 from RepositorioPort import RepositorioPort
+
+
+
 class GestorEstudiantes :
     def __init__(self, repo: RepositorioPort):
         self._estudiantes: list[Estudiante] = []
@@ -95,6 +98,20 @@ class GestorEstudiantes :
     def agregar_estudiante(self, estudiante: Estudiante):
         self.estudiantes.append(estudiante)
 
+    def set_estudiantes(self, estudiantes: list[Estudiante]) -> None:
+        """
+        Asigna una lista de objetos Estudiante al gestor.
+
+        Args:
+            estudiantes (List[Estudiante]): Lista de estudiantes a asignar.
+        Raises:
+            TypeError: Si algún elemento no es una instancia de Estudiante.
+        """
+        if not all(isinstance(e, Estudiante) for e in estudiantes):
+            raise TypeError("Todos los elementos deben ser instancias de la clase Estudiante.")
+
+        self._estudiantes = estudiantes.copy()
+        print(f"✅ Se asignaron {len(estudiantes)} estudiantes correctamente.")
     def listar_ordenado(self,orden: str = "nombre")-> list[Estudiante]:
         if orden == "nombre":
             return sorted(self.estudiantes, key=lambda estudiante: estudiante.getNombre())
@@ -176,36 +193,11 @@ class GestorEstudiantes :
             logging.error(e)
             raise
 
-
-"""
-#1 Rita
--estudiantes: list[Estudiante]
-- repo: RepositorioPort
-+ __init__(repo: RepositorioPort)
-+agregar_estudiante(est: Estudiante) void
-+ editar_estudiante(id: int, nombre: str = None, nota: float = None) void
-+ eliminar_estudiante(id: int) void
-+ buscar_por_id(id: int) Estudiante
-+ buscar_por_nombre(prefijo: str) list[Estudiante]
-
-2
-Jon
-+ listar_ordenado(criterio: str = "nombre") list[Estudiante]
-listo 
-+ clasificar(umbral: float = 70.0) dict
-listo 
-
-+ estadisticas() ->dict estudiantes
-listo 
-+ distribucion_porcentual() ->dict
-listo
-+ cargar() void
-necestitamos  persistencia de datos 
-
-+ guardar() void
-necestitamos  persistencia de datos 
-+ obtener_todos()
-list[Estudiante]
-+ contar_estudiantes()->int
-
-"""
+    def cargar(self) -> None:
+        """Load students from repository."""
+        try:
+            self._estudiantes = self._repo.cargar()
+            logging.info(f"Loaded {len(self._estudiantes)} students from repository")
+        except Exception as e:
+            logging.error(f"Error loading students: {e}")
+            raise
