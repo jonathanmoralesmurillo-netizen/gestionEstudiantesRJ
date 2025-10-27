@@ -41,7 +41,7 @@ class GestorEstudiantes:
                 return est
         return None
 
-    def buscar_por_nombre(self, nombre_busqueda: str) -> Estudiante: | none
+    def buscar_por_nombre(self, nombre_busqueda: str) -> Estudiante:
         for est in self.alumnos:
             if est.nombre.lower().startswith (nombre_busqueda.lower()): return est
         return None
@@ -64,13 +64,16 @@ class GestorEstudiantes:
             reverse = True
         return sorted(self.alumnos, key=criterios_validos[criterio], reverse=reverse)
 
-   def clasificar (self, umbral: float) -> list[dict]:  # Devuelve la lista indicando si está aprobado o no
-       # clasifica los estudiantes según un umbral configurable
-       lista_clasificada = []
-       for est in self.alumnos:
-           estado: "aprobado" if est.nota >= umbral else "reprobado"
 
-        # Crea el diccionario del estudiante
+def clasificar(self, umbral: float) -> list[dict]:
+    """
+    Devuelve la lista de estudiantes indicando si están aprobados o no,
+    según el umbral de nota configurado.
+    """
+    lista_clasificada = []
+
+    for est in self.alumnos:
+        estado = "aprobado" if est.nota >= umbral else "reprobado"
         estudiante_dict = {
             "id": est.id,
             "nombre": est.nombre,
