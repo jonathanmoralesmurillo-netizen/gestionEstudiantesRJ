@@ -4,8 +4,6 @@ import csv
 from Estudiante import Estudiante
 from RepositorioPort import RepositorioPort
 
-
-
 class GestorEstudiantes :
     def __init__(self, repo: RepositorioPort):
         self._estudiantes: list[Estudiante] = []

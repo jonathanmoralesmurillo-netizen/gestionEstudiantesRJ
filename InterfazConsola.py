@@ -1,4 +1,3 @@
-from Estudiante import Estudiante
 class InterfazConsola:
     def __init__(self, gestor):
         self.gestor = gestor
