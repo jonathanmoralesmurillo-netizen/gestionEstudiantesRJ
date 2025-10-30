@@ -41,17 +41,78 @@ class InterfazConsola:
             if not self._salir:
                 input("\nPulsa Enter para continuar...")
 
+    def _leer_int(self, mensaje, minimo=None, maximo=None):
+        while True:
+            texto = input(mensaje).strip()
+            try:
+                valor = int(texto)
+                if minimo is not None and valor < minimo:
+                    print(f"❌ Debe ser ≥ {minimo}.");
+                    continue
+                if maximo is not None and valor > maximo:
+                    print(f"❌ Debe ser ≤ {maximo}.");
+                    continue
+                return valor
+            except ValueError:
+                print("❌ Debes digitar un número entero.")
+
+    def _leer_float(self, mensaje, minimo=None, maximo=None):
+        while True:
+            texto = input(mensaje).strip()
+            try:
+                valor = float(texto)
+                if minimo is not None and valor < minimo:
+                    print(f"❌ Debe ser ≥ {minimo}.");
+                    continue
+                if maximo is not None and valor > maximo:
+                    print(f"❌ Debe ser ≤ {maximo}.");
+                    continue
+                return valor
+            except ValueError:
+                print("❌ Debes digitar un número (puede tener decimales).")
+
+    def _leer_texto(self, mensaje):
+        while True:
+            texto = input(mensaje).strip()
+            if texto:
+                return texto
+            print("❌ El texto no puede estar vacío.")
     # ------- Acciones del menú -------
-    def op_agregar(self): print("→ Agregar (conectamos en el siguiente paso).")
+    def op_agregar(self):
+        print("\n➕ Agregar estudiante")
+        id_ = self._leer_int("ID (entero ≥ 1): ", minimo=1)
+        nombre = self._leer_texto("Nombre: ")
+        nota = self._leer_float("Nota (0-100): ", minimo=0, maximo=100)
+        self.gestor.agregar_desde_datos(id_, nombre, nota)
+        print(f"✅ Agregado: id={id_}, nombre={nombre}, nota={nota:.2f}")
+
     def op_editar(self): print("→ Editar (siguiente paso).")
+
+
     def op_eliminar(self): print("→ Eliminar (siguiente paso).")
+
+
     def op_buscar_id(self): print("→ Buscar por ID (siguiente paso).")
+
+
     def op_buscar_nombre(self): print("→ Buscar por nombre (siguiente paso).")
+
+
     def op_listar_ordenado(self): print("→ Listar ordenado (siguiente paso).")
+
+
     def op_clasificar(self): print("→ Clasificar (siguiente paso).")
+
+
     def op_estadisticas(self): print("→ Estadísticas (siguiente paso).")
+
+
     def op_cargar(self): print("→ Cargar (siguiente paso).")
+
+
     def op_guardar(self): print("→ Guardar (siguiente paso).")
+
+
     def op_salir(self):
         self._salir = True
         print("👋 Saliendo...")

@@ -199,3 +199,13 @@ class GestorEstudiantes :
         except Exception as e:
             logging.error(f"Error loading students: {e}")
             raise
+
+    def agregar_desde_datos(self, id: int, nombre: str, nota: float) -> None:
+        """Crea el Estudiante y lo agrega (la vista solo pasa los datos)."""
+        from Estudiante import Estudiante
+        # Validación de unicidad por id
+        if any(e.id == id for e in self.estudiantes):
+            raise ValueError(f"Ya existe un estudiante con id {id}")
+        est = Estudiante(id, nombre, nota)
+        self.agregar_estudiante(est)
+
