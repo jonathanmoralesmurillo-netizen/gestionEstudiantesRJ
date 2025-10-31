@@ -77,6 +77,32 @@ class InterfazConsola:
             if texto:
                 return texto
             print("❌ El texto no puede estar vacío.")
+
+    def _leer_criterio(self, mensaje, validos: set[str], por_defecto: str):
+        """Pregunta al usuario por el criterio de ordenamiento."""
+        while True:
+            s = input(mensaje).strip().lower()
+            if s == "":
+                return por_defecto
+            if s in validos:
+                return s
+            print(f"❌ Debe ser uno de: {', '.join(sorted(validos))}")
+
+    def _print_tabla(self, lista):
+        """Muestra los estudiantes en formato tabular."""
+        if not lista:
+            print("(sin registros)")
+            return
+
+        print("-" * 60)
+        print(f"{'ID':>5}  {'Nombre':<30}  {'Nota':>6}")
+        print("-" * 60)
+
+        # Muestra la tabla con Id, Nombre, Nota
+        for e in lista:
+            print(f"{e.getId():>5}  {e.getNombre()[:30]:<30}  {e.getNota():>6.2f}")
+        print("-" * 60)
+
     # ------- Acciones del menú -------
     def op_agregar(self):
         print("\n➕ Agregar estudiante")
@@ -98,8 +124,15 @@ class InterfazConsola:
     def op_buscar_nombre(self): print("→ Buscar por nombre (siguiente paso).")
 
 
-    def op_listar_ordenado(self): print("→ Listar ordenado (siguiente paso).")
-
+    def op_listar_ordenado(self):
+        print("\n📋 Listar ordenado")
+        orden = self._leer_criterio(
+            "Orden (nombre/nota) [default nombre]: ",
+            validos={"nombre", "nota"},
+            por_defecto="nombre"
+        )
+        lista = self.gestor.listar_ordenado(orden)
+        self._print_tabla(lista)
 
     def op_clasificar(self): print("→ Clasificar (siguiente paso).")
 

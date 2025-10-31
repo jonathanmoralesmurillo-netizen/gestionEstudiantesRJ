@@ -110,6 +110,7 @@ class GestorEstudiantes :
 
         self._estudiantes = estudiantes.copy()
         print(f"✅ Se asignaron {len(estudiantes)} estudiantes correctamente.")
+
     def listar_ordenado(self,orden: str = "nombre")-> list[Estudiante]:
         if orden == "nombre":
             return sorted(self.estudiantes, key=lambda estudiante: estudiante.getNombre())
@@ -117,6 +118,7 @@ class GestorEstudiantes :
             return sorted(self.estudiantes, key=lambda estudiante: estudiante.getNota())
         else:
             raise ValueError("los criterios no son ni nombre ni nota")
+
     def  clasificar(self, umbral: float = 70.0)-> dict:
         listReprobados =[]
         listAprobados = []
