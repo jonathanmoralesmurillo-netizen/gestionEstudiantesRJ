@@ -62,8 +62,21 @@ class InterfazConsola:
         self.gestor.editar_estudiante(id_, nombre=nombre, nota=nota)
         print("✅ Estudiante actualizado.")
 
-    def op_eliminar(self): print("→ Eliminar (siguiente paso).")
+    def op_eliminar(self):
+        print("\n🗑️  Eliminar estudiante")
+        id_ = leer_int("ID a eliminar (≥1): ", minimo=1)
 
+        # Confirmación previa
+        confirmar = input(f"¿Seguro que desea eliminar el estudiante con ID {id_}? (s/N): ").strip().lower()
+        if confirmar != "s":
+            print("↩️  Operación cancelada.")
+            return
+
+        eliminado = self.gestor.eliminar_estudiante(id_)
+        if eliminado:
+            print("✅ Estudiante eliminado correctamente.")
+        else:
+            print("⚠️  No existe un estudiante con ese ID.")
 
     def op_buscar_id(self): print("→ Buscar por ID (siguiente paso).")
 
