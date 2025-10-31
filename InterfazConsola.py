@@ -1,3 +1,6 @@
+from ui.io import leer_int, leer_float, leer_texto, leer_texto_opcional, leer_float_opcional, leer_criterio
+from ui.printers import print_tabla_estudiantes
+
 class InterfazConsola:
     def __init__(self, gestor):
         self.gestor = gestor
@@ -41,79 +44,23 @@ class InterfazConsola:
             if not self._salir:
                 input("\nPulsa Enter para continuar...")
 
-    def _leer_int(self, mensaje, minimo=None, maximo=None):
-        while True:
-            texto = input(mensaje).strip()
-            try:
-                valor = int(texto)
-                if minimo is not None and valor < minimo:
-                    print(f"❌ Debe ser ≥ {minimo}.");
-                    continue
-                if maximo is not None and valor > maximo:
-                    print(f"❌ Debe ser ≤ {maximo}.");
-                    continue
-                return valor
-            except ValueError:
-                print("❌ Debes digitar un número entero.")
-
-    def _leer_float(self, mensaje, minimo=None, maximo=None):
-        while True:
-            texto = input(mensaje).strip()
-            try:
-                valor = float(texto)
-                if minimo is not None and valor < minimo:
-                    print(f"❌ Debe ser ≥ {minimo}.");
-                    continue
-                if maximo is not None and valor > maximo:
-                    print(f"❌ Debe ser ≤ {maximo}.");
-                    continue
-                return valor
-            except ValueError:
-                print("❌ Debes digitar un número (puede tener decimales).")
-
-    def _leer_texto(self, mensaje):
-        while True:
-            texto = input(mensaje).strip()
-            if texto:
-                return texto
-            print("❌ El texto no puede estar vacío.")
-
-    def _leer_criterio(self, mensaje, validos: set[str], por_defecto: str):
-        """Pregunta al usuario por el criterio de ordenamiento."""
-        while True:
-            s = input(mensaje).strip().lower()
-            if s == "":
-                return por_defecto
-            if s in validos:
-                return s
-            print(f"❌ Debe ser uno de: {', '.join(sorted(validos))}")
-
-    def _print_tabla(self, lista):
-        """Muestra los estudiantes en formato tabular."""
-        if not lista:
-            print("(sin registros)")
-            return
-
-        print("-" * 60)
-        print(f"{'ID':>5}  {'Nombre':<30}  {'Nota':>6}")
-        print("-" * 60)
-
-        # Muestra la tabla con Id, Nombre, Nota
-        for e in lista:
-            print(f"{e.getId():>5}  {e.getNombre()[:30]:<30}  {e.getNota():>6.2f}")
-        print("-" * 60)
-
     # ------- Acciones del menú -------
     def op_agregar(self):
         print("\n➕ Agregar estudiante")
-        id_ = self._leer_int("ID (entero ≥ 1): ", minimo=1)
-        nombre = self._leer_texto("Nombre: ")
-        nota = self._leer_float("Nota (0-100): ", minimo=0, maximo=100)
+        id_ = leer_int("ID (entero ≥ 1): ", minimo=1)
+        nombre = leer_texto("Nombre: ")
+        nota = leer_float("Nota (0-100): ", minimo=0, maximo=100)
         self.gestor.agregar_desde_datos(id_, nombre, nota)
         print(f"✅ Agregado: id={id_}, nombre={nombre}, nota={nota:.2f}")
 
-    def op_editar(self): print("→ Editar (siguiente paso).")
-
+    def op_editar(self):
+        print("\n✏️  Editar estudiante")
+        id_ = leer_int("ID a editar (≥1): ", minimo=1)
+        print("Deja vacío para no cambiar ese campo.")
+        nombre = leer_texto_opcional("Nuevo nombre: ")
+        nota   = leer_float_opcional("Nueva nota (0-100): ", minimo=0, maximo=100)
+        self.gestor.editar_estudiante(id_, nombre=nombre, nota=nota)
+        print("✅ Estudiante actualizado.")
 
     def op_eliminar(self): print("→ Eliminar (siguiente paso).")
 
@@ -126,13 +73,13 @@ class InterfazConsola:
 
     def op_listar_ordenado(self):
         print("\n📋 Listar ordenado")
-        orden = self._leer_criterio(
+        orden = leer_criterio(
             "Orden (nombre/nota) [default nombre]: ",
             validos={"nombre", "nota"},
             por_defecto="nombre"
         )
         lista = self.gestor.listar_ordenado(orden)
-        self._print_tabla(lista)
+        print_tabla_estudiantes(lista)
 
     def op_clasificar(self): print("→ Clasificar (siguiente paso).")
 
