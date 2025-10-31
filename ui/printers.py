@@ -12,3 +12,8 @@ def print_tabla_estudiantes(lista):
         get_nota = e.getNota() if hasattr(e, "getNota") else getattr(e, "nota", 0.0)
         print(f"{get_id:>5}  {str(get_nombre)[:30]:<30}  {get_nota:>6.2f}")
     print("-" * 60)
+
+def print_tabla_estudiantes_obj(estudiantes):
+    # Imprime una lista de objetos Estudiante usando sus métodos públicos.
+    filas = [(e.getId(), e.getNombre(), e.getNota()) for e in estudiantes]
+    print_tabla_estudiantes(filas)
