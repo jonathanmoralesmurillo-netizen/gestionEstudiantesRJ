@@ -106,8 +106,27 @@ class InterfazConsola:
     def op_clasificar(self): print("→ Clasificar (siguiente paso).")
 
 
-    def op_estadisticas(self): print("→ Estadísticas (siguiente paso).")
+    def op_estadisticas(self) -> None:
 
+        """ ver estadistias de los datos """
+        print("\n--- ESTADÍSTICAS ---")
+
+        try:
+            stats = self.gestor.estadisticas()
+
+            print("-" * 40)
+            print("RESUMEN ESTADÍSTICO")
+            print("-" * 40)
+            print(f"Total de estudiantes: {stats['total']}")
+            print(f"Promedio general: {stats['promedio']}")
+            print(f"Nota máxima: {stats['maxima']}")
+            print(f"Nota mínima: {stats['minima']}")
+            print(f"Desviación estándar: {stats['desviacion']}")
+            print("-" * 40)
+
+        except Exception as e:
+            print(f" Error inesperado: {e}")
+            logging.error(f"Error al ver estatisticas: {e}")
 
     def op_cargar(self): print("→ Cargar (siguiente paso).")
 
