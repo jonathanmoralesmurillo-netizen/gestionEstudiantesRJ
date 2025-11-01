@@ -1,6 +1,7 @@
 from ui.io import leer_int, leer_float, leer_texto, leer_texto_opcional, leer_float_opcional, leer_criterio
 from ui.printers import print_tabla_estudiantes, print_tabla_estudiantes_obj
 
+import logging
 class InterfazConsola:
     def __init__(self, gestor):
         self.gestor = gestor
@@ -103,37 +104,71 @@ class InterfazConsola:
         lista = self.gestor.listar_ordenado(orden)
         print_tabla_estudiantes(lista)
 
-    def op_clasificar(self): print("→ Clasificar (siguiente paso).")
+    def op_clasificar(self):
+        """Show statistical data."""
+        print("\n--- ESTADÍSTICAS ---")
 
+        try:
+            estadisticas = self.gestor.estadisticas()
+            print("-" * 40)
+            print("RESUMEN ESTADÍSTICO")
+            print("-" * 40)
+            print(f"Total de estudiantes: {estadisticas['total']}")
+            print(f"Promedio general: {estadisticas['promedio']}")
+            print(f"Nota máxima: {estadisticas['maxima']}")
+            print(f"Nota mínima: {estadisticas['minima']}")
+            print(f"Desviación estándar: {estadisticas['desviacion']}")
+            print("-" * 40)
 
+        except Exception as e:
+            print(f" Error inesperado: {e}")
+            logging.error(f"Error showing statistics: {e}")
     def op_estadisticas(self) -> None:
 
         """ ver estadistias de los datos """
         print("\n--- ESTADÍSTICAS ---")
 
         try:
-            stats = self.gestor.estadisticas()
+            estadistica = self.gestor.estadisticas()
 
             print("-" * 40)
             print("RESUMEN ESTADÍSTICO")
             print("-" * 40)
-            print(f"Total de estudiantes: {stats['total']}")
-            print(f"Promedio general: {stats['promedio']}")
-            print(f"Nota máxima: {stats['maxima']}")
-            print(f"Nota mínima: {stats['minima']}")
-            print(f"Desviación estándar: {stats['desviacion']}")
+            print(f"Total de estudiantes: {estadistica['total']}")
+            print(f"Promedio general: {estadistica['promedio']}")
+            print(f"Nota máxima: {estadistica['maxima']}")
+            print(f"Nota mínima: {estadistica['minima']}")
+            print(f"Desviación estándar: {estadistica['desviacion']}")
             print("-" * 40)
 
         except Exception as e:
             print(f" Error inesperado: {e}")
+
             logging.error(f"Error al ver estatisticas: {e}")
 
-    def op_cargar(self): print("→ Cargar (siguiente paso).")
+    def op_cargar(self):
+        """Cargar al repositorio."""
+        print("\n--- CARGAR DATOS ---")
 
+        try:
+            self.gestor.cargar()
+            print("✓ Datos cargados exitosamente")
 
-    def op_guardar(self): print("→ Guardar (siguiente paso).")
+        except Exception as e:
+            print(f"Error al cargar datos: {e}")
+            logging.error(f"Error loading data: {e}")
 
+    def op_guardar(self):
+        """Guardar datos  ."""
+        print("\n--- GUARDAR DATOS ---")
 
+        try:
+            self.gestor.guardar()
+            print("✓ Datos guardados exitosamente")
+
+        except Exception as e:
+            print(f" Error al guardar datos: {e}")
+            logging.error(f"Error saving data: {e}")
     def op_salir(self):
         self._salir = True
         print("👋 Saliendo...")
