@@ -1,24 +1,12 @@
-from Estudiante import *
-
+# main.py
 from RepositorioCSV import RepositorioCSV
-from GestorEstudiantes import *
-from RepositorioCSV import *
+from GestorEstudiantes import GestorEstudiantes
+from InterfazConsola import InterfazConsola
 
-repo = RepositorioCSV("estudiantes.csv")
-gestor = GestorEstudiantes(repo)
-gestor.set_estudiantes(repo.cargar())
-gestor.obtener_Todos()
-"""holA #12 """
+if __name__ == "__main__":
+    # esqueleto del menú
+    repo = RepositorioCSV("estudiantes.csv")
+    gestor = GestorEstudiantes(repo)
 
-print(gestor.estaditicas())
-print(gestor.distribucion_porcentual())
-print("Estudiantes ordenados por nombre:")
-for e in gestor.listar_ordenado("nombre"):
-    print(e)
-
-
-print("Estudiantes ordenados por Nota:")
-for e in gestor.listar_ordenado("nota"):
-    print(e)
-
-gestor.guardar()
+    ui = InterfazConsola(gestor)
+    ui.ejecutar()

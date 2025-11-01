@@ -7,8 +7,6 @@ class Estudiante:
         self.id = id
         self.nombre = nombre
         self.nota = nota
-
-
     def getId(self)-> int:
         return self.id
     def getNombre(self)-> str:
