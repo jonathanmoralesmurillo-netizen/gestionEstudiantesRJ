@@ -9,6 +9,9 @@ class GestorEstudiantes :
         self._estudiantes: list[Estudiante] = []
         self._repo = repo
         self._configurar_logging()
+
+
+
     def agregar_estudiante(self, id:int, nombre: str, nota: float) -> bool:  # crea un estudiante
         # Validación de unicidad de ID
         if any(est.id == id for est in self.estudiantes):
@@ -36,11 +39,17 @@ class GestorEstudiantes :
                 return True
         return False
 
-    def buscar_por_id(self, id_busqueda: int) -> Estudiante:
-        for i, est in self.estudiantes:
-            if est.id == id_busqueda:
+
+
+    def buscar_por_id(self, id_buscar: int):
+        for i, est in enumerate(self._estudiantes):
+            if est.id == id_buscar:
                 return est
         return None
+
+    def buscar_por_inicial(self, letra: str):
+        """Devuelve una lista de estudiantes cuyo nombre empieza con la letra indicada."""
+        return [e for e in self._estudiantes if e.getNombre().startswith(letra)]
 
     def buscar_por_nombre(self, nombre_busqueda: str) -> Estudiante:
         for est in self.estudiantes:
@@ -178,12 +187,13 @@ class GestorEstudiantes :
 
 
 
-    def obtener_Todos(self)-> list[Estudiante]:
+    def obtener_todos(self)-> list[Estudiante]:
         """.copy(): devuelve una copia superficial (shallow copy) de la lista.
 
     Beneficio: quien llame al método recibe otra lista;
     si añade o elimina elementos en esa lista no altera la lista interna del objeto."""
         return self._estudiantes
+
 
     def guardar(self)->None:
         try:
