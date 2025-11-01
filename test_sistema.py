@@ -55,8 +55,8 @@ def probar_sistema():
     print("\n🎯 CLASIFICACIÓN DE ESTUDIANTES (umbral 70):")
     print("-" * 50)
     clasificacion = gestor.clasificar(70.0)
-    aprobados = clasificacion['aprobados']
-    reprobados = clasificacion['reprobados']
+    aprobados = clasificacion['Aprobados']
+    reprobados = clasificacion['Reprobados']
 
     print(f"✓ APROBADOS ({len(aprobados)} estudiante(s)):")
     for est in aprobados:

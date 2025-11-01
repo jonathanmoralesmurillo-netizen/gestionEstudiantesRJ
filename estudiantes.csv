@@ -14,7 +14,6 @@ id,nombre,nota
 13,Fernando Ruiz,65.0
 14,Camila Vega,97.0
 15,Diego Navarro,80.0
-16,Andrea González,76.0
 17,José Ramírez,83.0
 18,Natalia Soto,92.0
 19,Miguel Porras,87.0
@@ -40,3 +39,4 @@ id,nombre,nota
 39,Kevin Vargas,67.0
 40,Catalina León,95.0
 90,jonathan,67.0
+16,Test Estudiante,88.5

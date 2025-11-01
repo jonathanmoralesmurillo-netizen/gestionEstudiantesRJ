@@ -140,7 +140,6 @@ class GestorEstudiantes :
             "Aprobados": listAprobados,
             "Reprobados": listReprobados
         }
-
     def estadisticas(self)-> dict[str,float]:
 
         if not self.estudiantes:
