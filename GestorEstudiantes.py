@@ -39,13 +39,13 @@ class GestorEstudiantes :
                 return True
         return False
 
-
-
-    def buscar_por_id(self, id_buscar: int):
-        for i, est in enumerate(self._estudiantes):
-            if est.id == id_buscar:
-                return est
+    def buscar_por_id(self, id_):
+        for e in self._estudiantes:
+            if e.getId() == id_:
+                return e
         return None
+
+
 
     def buscar_por_inicial(self, letra: str):
         """Devuelve una lista de estudiantes cuyo nombre empieza con la letra indicada."""

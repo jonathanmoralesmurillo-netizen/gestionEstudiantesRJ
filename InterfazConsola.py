@@ -1,5 +1,5 @@
 from ui.io import leer_int, leer_float, leer_texto, leer_texto_opcional, leer_float_opcional, leer_criterio
-from ui.printers import print_tabla_estudiantes, print_tabla_estudiantes_obj
+from ui.printers import print_tabla_estudiantes, print_tabla_estudiantes_obj,print_tabla_estudiante
 
 import logging
 class InterfazConsola:
@@ -84,12 +84,9 @@ class InterfazConsola:
         id_ = leer_int("ID a buscar (≥1): ", minimo=1)
 
         est = self.gestor.buscar_por_id(id_)
-        if est is None:
-            print("⚠️  No existe un estudiante con ese ID.")
-            return
 
         # Imprime en tabla usando los métodos públicos
-        print_tabla_estudiantes_obj([est])
+        print_tabla_estudiante(est)
 
     def op_buscar_nombre(self): print("→ Buscar por nombre (siguiente paso).")
 
