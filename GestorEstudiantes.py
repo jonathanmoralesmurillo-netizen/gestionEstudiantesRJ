@@ -45,16 +45,17 @@ class GestorEstudiantes :
                 return e
         return None
 
+    def buscar_por_nombre(self, prefijo: str) -> list[Estudiante]:
+        prefijo_lower = prefijo.lower().strip()
+        resultados = []
+        for estudiante in self._estudiantes:
+            if estudiante.getNombre().lower().startswith(prefijo_lower):
+                resultados.append(estudiante)
+
+        return resultados
 
 
-    def buscar_por_inicial(self, letra: str):
-        """Devuelve una lista de estudiantes cuyo nombre empieza con la letra indicada."""
-        return [e for e in self._estudiantes if e.getNombre().startswith(letra)]
 
-    def buscar_por_nombre(self, nombre_busqueda: str) -> Estudiante:
-        for est in self.estudiantes:
-            if est.nombre.lower().startswith(nombre_busqueda.lower()): return est
-        return None
 
     def listar_ordenado(self, criterio: str = "nombre") -> list[
         Estudiante]:  # Devuelve la lista ordenada, según criterio

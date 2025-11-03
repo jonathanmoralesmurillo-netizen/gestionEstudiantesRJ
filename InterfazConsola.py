@@ -88,7 +88,25 @@ class InterfazConsola:
         # Imprime en tabla usando los métodos públicos
         print_tabla_estudiante(est)
 
-    def op_buscar_nombre(self): print("→ Buscar por nombre (siguiente paso).")
+    def op_buscar_nombre(self):
+        print("Buscar estudiante por nombre")
+        try:
+            prefijo = input("Ingrese la inicial del estudiante: ").strip()
+            if not prefijo:
+                print("el nombre no puede estar vacio")
+                return
+            resultados = self.gestor.buscar_por_nombre(prefijo)
+            if resultados:
+                print(f" Se encontrado {len(resultados)} estudiantes ")
+                for estudiante in resultados:
+                    print(f"- estudiante: {estudiante.getNombre()}")
+            else:
+                print(f"no se encontraron estudiantes que inicie con '{prefijo}'")
+        except Exception as e:
+            print(f"Error en buscar estudiante: {e}")
+            logging.error(f"Error en buscar estudiante: {e}")
+
+
 
 
     def op_listar_ordenado(self):
