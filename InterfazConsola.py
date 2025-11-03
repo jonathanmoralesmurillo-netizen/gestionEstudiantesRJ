@@ -120,24 +120,34 @@ class InterfazConsola:
         print_tabla_estudiantes(lista)
 
     def op_clasificar(self):
-        """Show statistical data."""
-        print("\n--- ESTADÍSTICAS ---")
-
+        print("\n--- Clasificados ---")
         try:
-            estadisticas = self.gestor.estadisticas()
-            print("-" * 40)
-            print("RESUMEN ESTADÍSTICO")
-            print("-" * 40)
-            print(f"Total de estudiantes: {estadisticas['total']}")
-            print(f"Promedio general: {estadisticas['promedio']}")
-            print(f"Nota máxima: {estadisticas['maxima']}")
-            print(f"Nota mínima: {estadisticas['minima']}")
-            print(f"Desviación estándar: {estadisticas['desviacion']}")
-            print("-" * 40)
-
+            umbral = 70
+            clasificacion = self.gestor.clasificar(umbral)
+            aprobados = clasificacion['Aprobados']
+            reprobados = clasificacion['Reprobados']
+            print(f"\nClasificación con umbral de {umbral}:")
+            print("-" * 50)
+            if aprobados:
+                print(f"✓ APROBADOS ({len(aprobados)} estudiante(s)):")
+                for estudiante in aprobados:
+                    print(f"  - {estudiante}")
+            else:
+                print(" No hay estudiantes aprobados")
+            print()
+            if reprobados:
+                print(f" REPROBADOS ({len(reprobados)} estudiante(s)):")
+                for estudiante in reprobados:
+                    print(f"  - {estudiante}")
+            else:
+                print("✓ No hay estudiantes reprobados")
+            print("-" * 50)
+        except ValueError as e:
+            print(f" Error: {e}")
         except Exception as e:
             print(f" Error inesperado: {e}")
-            logging.error(f"Error showing statistics: {e}")
+            logging.error(f"Error al clasificar los estudiantes: {e}")
+
     def op_estadisticas(self) -> None:
 
         """ ver estadistias de los datos """
