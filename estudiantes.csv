@@ -1,8 +1,43 @@
 id,nombre,nota
-1,Jon,66.0
-2,beto,70.0
-3,maria,79.0
-4,mario,100.0
-5,aaron,50.0
-6,Martha,80.0
-7,David,100.0
+1,anita,0.0
+2,Carlos Jiménez,74.0
+3,María Fernández,95.0
+4,Luis Rojas,82.0
+5,Elena Vargas,90.0
+6,Andrés Solano,68.0
+7,Sofía Gómez,77.0
+8,Daniela Mora,85.0
+9,Jorge López,93.0
+10,Lucía Castro,70.0
+11,Pedro Méndez,89.0
+12,Valeria Campos,91.0
+13,Fernando Ruiz,65.0
+14,Camila Vega,97.0
+15,Diego Navarro,80.0
+17,José Ramírez,83.0
+18,Natalia Soto,92.0
+19,Miguel Porras,87.0
+20,Laura Chacón,79.0
+21,Samuel Méndez,94.0
+22,Isabella Vargas,73.0
+23,Marcos Castillo,90.0
+24,Daniel Rojas,81.0
+25,Emilia Quesada,85.0
+26,Adrián Morales,78.0
+27,Victoria Solís,96.0
+28,Martín Hernández,88.0
+29,Luciano Pérez,72.0
+30,Julia Brenes,91.0
+31,Esteban Alvarado,86.0
+32,Mariana Gutiérrez,69.0
+33,Tomás Jiménez,75.0
+34,Carolina Mora,84.0
+35,Gabriel Sánchez,92.0
+36,Sara Aguilar,80.0
+37,Juan José Castro,89.0
+38,Paula Rodríguez,93.0
+39,Kevin Vargas,67.0
+40,Catalina León,95.0
+90,jonathan,67.0
+16,Test Estudiante,88.5
+99,jon,99.0

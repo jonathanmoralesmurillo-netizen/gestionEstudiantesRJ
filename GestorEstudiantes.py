@@ -4,13 +4,14 @@ import csv
 from Estudiante import Estudiante
 from RepositorioPort import RepositorioPort
 
-
-
 class GestorEstudiantes :
     def __init__(self, repo: RepositorioPort):
         self._estudiantes: list[Estudiante] = []
         self._repo = repo
         self._configurar_logging()
+
+
+
     def agregar_estudiante(self, id:int, nombre: str, nota: float) -> bool:  # crea un estudiante
         # Validación de unicidad de ID
         if any(est.id == id for est in self.estudiantes):
@@ -38,16 +39,23 @@ class GestorEstudiantes :
                 return True
         return False
 
-    def buscar_por_id(self, id_busqueda: int) -> Estudiante:
-        for i, est in self.estudiantes:
-            if est.id == id_busqueda:
-                return est
+    def buscar_por_id(self, id_):
+        for e in self._estudiantes:
+            if e.getId() == id_:
+                return e
         return None
 
-    def buscar_por_nombre(self, nombre_busqueda: str) -> Estudiante:
-        for est in self.estudiantes:
-            if est.nombre.lower().startswith(nombre_busqueda.lower()): return est
-        return None
+    def buscar_por_nombre(self, prefijo: str) -> list[Estudiante]:
+        prefijo_lower = prefijo.lower().strip()
+        resultados = []
+        for estudiante in self._estudiantes:
+            if estudiante.getNombre().lower().startswith(prefijo_lower):
+                resultados.append(estudiante)
+
+        return resultados
+
+
+
 
     def listar_ordenado(self, criterio: str = "nombre") -> list[
         Estudiante]:  # Devuelve la lista ordenada, según criterio
@@ -112,6 +120,7 @@ class GestorEstudiantes :
 
         self._estudiantes = estudiantes.copy()
         print(f"✅ Se asignaron {len(estudiantes)} estudiantes correctamente.")
+
     def listar_ordenado(self,orden: str = "nombre")-> list[Estudiante]:
         if orden == "nombre":
             return sorted(self.estudiantes, key=lambda estudiante: estudiante.getNombre())
@@ -119,6 +128,7 @@ class GestorEstudiantes :
             return sorted(self.estudiantes, key=lambda estudiante: estudiante.getNota())
         else:
             raise ValueError("los criterios no son ni nombre ni nota")
+
     def  clasificar(self, umbral: float = 70.0)-> dict:
         listReprobados =[]
         listAprobados = []
@@ -131,8 +141,7 @@ class GestorEstudiantes :
             "Aprobados": listAprobados,
             "Reprobados": listReprobados
         }
-
-    def estaditicas(self)-> dict[str,float]:
+    def estadisticas(self)-> dict[str,float]:
 
         if not self.estudiantes:
             return{
@@ -178,12 +187,13 @@ class GestorEstudiantes :
 
 
 
-    def obtener_Todos(self)-> list[Estudiante]:
+    def obtener_todos(self)-> list[Estudiante]:
         """.copy(): devuelve una copia superficial (shallow copy) de la lista.
 
     Beneficio: quien llame al método recibe otra lista;
     si añade o elimina elementos en esa lista no altera la lista interna del objeto."""
         return self._estudiantes
+
 
     def guardar(self)->None:
         try:
@@ -201,3 +211,13 @@ class GestorEstudiantes :
         except Exception as e:
             logging.error(f"Error loading students: {e}")
             raise
+
+    def agregar_desde_datos(self, id: int, nombre: str, nota: float) -> None:
+        """Crea el Estudiante y lo agrega (la vista solo pasa los datos)."""
+        from Estudiante import Estudiante
+        # Validación de unicidad por id
+        if any(e.id == id for e in self.estudiantes):
+            raise ValueError(f"Ya existe un estudiante con id {id}")
+        est = Estudiante(id, nombre, nota)
+        self.agregar_estudiante(est)
+

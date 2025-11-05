@@ -1,0 +1,7 @@
+2025-10-31 22:20:44,263 - root - ERROR - Error al ver estatisticas: 'GestorEstudiantes' object has no attribute 'estadisticas'
+2025-10-31 22:25:38,440 - root - ERROR - Error al ver estatisticas: 'GestorEstudiantes' object has no attribute 'estadisticas'
+2025-10-31 22:29:42,430 - root - ERROR - Error showing statistics: 'InterfazConsola' object has no attribute '_gestor'
+2025-11-03 12:06:38,365 - root - ERROR - Error en buscar estudiante: 'GestorEstudiantes' object has no attribute 'buscar_nombre'
+2025-11-03 12:13:57,782 - root - ERROR - Error en buscar estudiante: 'GestorEstudiantes' object has no attribute 'buscar_nombre'
+2025-11-03 12:15:41,574 - root - ERROR - Error en buscar estudiante: 'GestorEstudiantes' object has no attribute 'buscar_nombre'
+2025-11-03 12:17:01,792 - root - ERROR - Error en buscar estudiante: 'Estudiante' object has no attribute 'get_nombre'
