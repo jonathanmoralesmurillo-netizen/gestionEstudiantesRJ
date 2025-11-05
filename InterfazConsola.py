@@ -33,6 +33,7 @@ class InterfazConsola:
     def ejecutar(self) -> None:
         while not self._salir:
             self.mostrar_menu()
+
             opcion = input("Selecciona una opción: ").strip()
             action = self.opciones.get(opcion)
             if action:
