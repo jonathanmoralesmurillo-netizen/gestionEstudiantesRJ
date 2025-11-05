@@ -9,4 +9,7 @@ if __name__ == "__main__":
     gestor = GestorEstudiantes(repo)
 
     ui = InterfazConsola(gestor)
-    ui.ejecutar()
+    try:
+       ui.ejecutar()
+    except KeyboardInterrupt:
+       print("\nPrograma interrumpido por el usuario.")
