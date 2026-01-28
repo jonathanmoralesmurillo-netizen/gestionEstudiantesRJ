@@ -1,6 +1,15 @@
-# Polimorfismo en la Clase Producto - Explicación
+# Polimorfismo en la Clase Producto (C++)
 
+El polimorfismo es un principio fundamental de la Programación Orientada a Objetos
+que permite que distintos objetos respondan al mismo método, pero ejecuten
+implementaciones diferentes según su tipo real en tiempo de ejecución.
+
+En este diseño, todos los productos responden al método `calcularPrecioVenta()`,
+pero cada tipo de producto calcula el precio de venta aplicando reglas distintas.
+Esto permite tratar todos los productos de forma uniforme mediante punteros a la
+clase base, sin necesidad de usar estructuras condicionales como `if` o `switch`.
 ## ¿Qué es el Polimorfismo?
+
 
 El **polimorfismo** permite que diferentes tipos de productos respondan al mismo método `calcularPrecioVenta()`, pero cada uno ejecute su propia lógica específica.
 
