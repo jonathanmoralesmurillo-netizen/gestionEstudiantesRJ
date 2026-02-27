@@ -1,5 +1,5 @@
 # Ejercicios de Matrices en C++
-
+#hola fufis
 ## Instrucciones Generales
 
 Este documento contiene 30 ejercicios sobre matrices en C++ que cubren tanto matrices automáticas (estáticas) como matrices dinámicas. Cada ejercicio debe resolverse implementando las clases y métodos necesarios.
