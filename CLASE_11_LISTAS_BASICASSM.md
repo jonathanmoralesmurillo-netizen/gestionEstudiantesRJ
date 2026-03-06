@@ -1,3 +1,38 @@
+# Diagrama UML – Calculadora con Interface
+
+```text
+                 <<interface>>
+                 IOperacion
+         --------------------------------
+         + calcular(a: double, b: double): double
+         + ~IOperacion()
+                    ▲
+                    │
+          -----------------------
+          │                     │
+          │                     │
+        Suma                  Resta
+  ------------------    ------------------
+  + calcular(a,b):double  + calcular(a,b):double
+
+
+              Calculadora
+      -----------------------------
+      - op: const IOperacion*
+      -----------------------------
+      + Calculadora()
+      + setOperacion(operacion: const IOperacion*): void
+      + ejecutar(a: double, b: double): double
+
+
+                main()
+      ----------------------------------
+      crea un objeto Calculadora
+      crea un objeto Suma
+      crea un objeto Resta
+      usa setOperacion(&s)
+      usa setOperacion(&r)
+```
 # Clase 1: Listas Enlazadas Básicas en C++
 
 ## Índice
