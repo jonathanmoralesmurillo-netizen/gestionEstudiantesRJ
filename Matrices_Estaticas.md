@@ -63,5 +63,5 @@ Ejemplo esperado:
 
 ```cpp
 Pizza* pizza = new PizzaBasica();
-pizza = new Queso(pizza);
-pizza = new Pepperoni(pizza);
+pizza = new Queso(new PizzaBasica());
+pizza = new Pepperoni(new PizzaBasica());
